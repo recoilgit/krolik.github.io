@@ -3,69 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <title>ДР Димы Кролика — 18 лет!</title>
+
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ff7b7b, #ffb36b);
-            color: white;
-            text-align: center;
+            background: #0d0d0d;
+            color: #fff;
+            overflow-x: hidden;
         }
+
+        /* Анимированный фон — частицы */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle, #111 0%, #000 100%);
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00aaff;
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
+        }
+
+        /* Плавное появление */
+        .fade {
+            animation: fadeIn 1.2s ease forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
         header {
             padding: 40px 20px;
+            text-align: center;
+            background: rgba(20,20,20,0.8);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #333;
+            backdrop-filter: blur(10px);
         }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
+
+        nav a {
+            margin: 0 15px;
+            color: #bbb;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
         }
-        h2 {
-            font-size: 28px;
-            margin-top: 0;
+        nav a:hover {
+            color: #fff;
         }
-        .block {
-            background: rgba(255,255,255,0.15);
-            margin: 20px auto;
+
+        /* Таймер большой */
+        #timer {
+            text-align: center;
+            font-size: 32px;
+            margin-top: 20px;
+            margin-bottom: 20px;
             padding: 20px;
-            width: 80%;
+            background: rgba(0, 120, 255, 0.15);
+            border: 1px solid #0055aa;
             border-radius: 12px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 20px rgba(0,150,255,0.3);
             backdrop-filter: blur(5px);
         }
+
+        /* Фиксированный таймер */
+        #fixed-timer {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 120, 255, 0.25);
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #0077cc;
+            font-size: 16px;
+            color: #fff;
+            z-index: 9999;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 15px rgba(0,150,255,0.4);
+        }
+
+        .block {
+            background: rgba(30,30,30,0.8);
+            margin: 30px auto;
+            padding: 25px;
+            width: 80%;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0,150,255,0.1);
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .block:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0,150,255,0.2);
+        }
+
+        .photo {
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 12px;
+            display: block;
+            border: 2px solid #333;
+        }
+
+        .map-button, .tg-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #0088ff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+        .map-button:hover, .tg-button:hover {
+            background: #00aaff;
+        }
+
         .footer {
             margin-top: 40px;
             padding: 20px;
             font-size: 14px;
-            opacity: 0.8;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            #timer {
+                width: 90%;
+                font-size: 26px;
+            }
+            .block {
+                width: 90%;
+            }
+            .photo {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 28px;
+            }
+            nav a {
+                font-size: 14px;
+                margin: 0 8px;
+            }
+            #fixed-timer {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+            #timer {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>🎉 День рождения Димы Кролика 🎉</h1>
-    <h2>Ему исполнилось 18!</h2>
+<div id="particles"></div>
+
+<script>
+    // Генерация частиц
+    for (let i = 0; i < 60; i++) {
+        let p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = 6 + Math.random() * 10 + "s";
+        p.style.opacity = 0.3 + Math.random() * 0.7;
+        document.getElementById("particles").appendChild(p);
+    }
+</script>
+
+<!-- Фиксированный таймер -->
+<div id="fixed-timer">Загрузка...</div>
+
+<header class="fade">
+    <h1>🎉 День рождения Димы Кролика — 18 лет 🎉</h1>
+    <nav>
+        <a href="#info">Инфо</a>
+        <a href="#routes">Как добраться</a>
+        <a href="#photos">Фото</a>
+    </nav>
 </header>
 
-<div class="block">
+<!-- Большой таймер -->
+<div id="timer" class="fade">Загрузка таймера...</div>
+
+<script>
+    function updateTimer() {
+        const partyDate = new Date("June 20, 2026 18:00:00").getTime();
+        const now = new Date().getTime();
+        const diff = partyDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("timer").innerHTML = "🎉 Тусовка уже началась!";
+            document.getElementById("fixed-timer").innerHTML = "🎉 Уже началось!";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const text = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+
+        document.getElementById("timer").innerHTML =
+            `До тусовки осталось:<br><b>${text}</b>`;
+
+        document.getElementById("fixed-timer").innerHTML = text;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
+<div id="info" class="block fade">
     <h2>📍 Где?</h2>
     <p>д. Слобода, ул. Столбцовская, д. 43</p>
-</div>
 
-<div class="block">
     <h2>📅 Когда?</h2>
     <p>20 июня 2026 года</p>
-</div>
 
-<div class="block">
     <h2>🔥 Что будет?</h2>
     <p>Музыка, движ, шашлыки, друзья, атмосфера и настоящий вайб!</p>
 </div>
 
-<div class="block">
-    <h2>🎁 Что взять с собой?</h2>
-    <p>Хорошее настроение, пару мемов и что‑нибудь вкусное</p>
+<div id="routes" class="block fade">
+    <h2>🚌 Как добраться?</h2>
+
+    <h3>Минск → Слобода</h3>
+    <p>Маршрутка Минск–Столбцы, остановка «Слобода»</p>
+    <p>⏱ Время в пути: ~45–55 минут</p>
+
+    <h3>Столбцы → Минск</h3>
+    <p>Маршрутка Столбцы–Минск, остановка «Слобода»</p>
+    <p>⏱ Время в пути: ~40–50 минут</p>
+
+    <br>
+    <a class="map-button" href="https://yandex.by/maps/?text=Слобода%20Столбцовская%2043" target="_blank">
+        📍 Открыть карту
+    </a>
+
+    <!-- Кнопка Telegram — замени ссылку на свою -->
+    <a class="tg-button" href="https://t.me/your_username" target="_blank">
+        ✉️ Написать в Telegram
+    </a>
 </div>
 
-<div class="footer">
+<div id="photos" class="block fade">
+    <h2>📸 Фото</h2>
+    <p>Сейчас стоят заглушки. Заменишь на свои.</p>
+
+    <img class="photo" src="photo1.jpg" alt="Фото 1">
+    <img class="photo" src="photo2.jpg" alt="Фото 2">
+    <img class="photo" src="photo3.jpg" alt="Фото 3">
+
+    <p style="opacity:0.7; font-size:14px;">
+        Чтобы добавить свои фото — загрузи их в репозиторий и замени <b>photo1.jpg</b>, <b>photo2.jpg</b>, <b>photo3.jpg</b>.
+    </p>
+</div>
+
+<div class="footer fade">
     © Тусовка Димы Кролика, 2026
 </div>
 
