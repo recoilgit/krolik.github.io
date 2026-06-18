@@ -5,6 +5,75 @@
     <title>День Димы Кролика — 18 лет!</title>
 
     <style>
+        /* Модальное окно */
+#modal-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+}
+
+#modal-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: #1a1a1a;
+    padding: 25px;
+    width: 90%;
+    max-width: 420px;
+    border-radius: 12px;
+    border: 1px solid #0077cc;
+    box-shadow: 0 0 25px rgba(0,150,255,0.4);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+#modal-window.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #aaa;
+}
+#modal-close:hover {
+    color: #fff;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+.modal-button {
+    width: 100%;
+    padding: 12px;
+    background: #0088ff;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.modal-button:hover {
+    background: #00aaff;
+}
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -208,6 +277,7 @@
         <a href="#info">Инфо</a>
         <a href="#routes">Как добраться</a>
         <a href="#photos">Фото</a>
+        <a class="tg-button" href="javascript:void(0)" onclick="openModal()">📨 Подать заявку</a>
     </nav>
 </header>
 
@@ -292,6 +362,53 @@
 <div class="footer fade">
     © Тусовка Кролика, 2026
 </div>
+    <!-- МОДАЛЬНОЕ ОКНО -->
+<div id="modal-bg">
+    <div id="modal-window">
+        <div id="modal-close" onclick="closeModal()">✖</div>
+
+        <h2>📨 Подать заявку</h2>
+        <p>Заполни форму, и я получу письмо автоматически.</p>
+
+        <form action="https://formsubmit.co/recoilgit@proton.me" method="POST">
+
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="Новая заявка с сайта!">
+            <input type="hidden" name="_template" value="table">
+
+            <label>Фамилия Имя:</label>
+            <input class="modal-input" type="text" name="fullname" required>
+
+            <label>Инстаграм:</label>
+            <input class="modal-input" type="text" name="instagram" required>
+
+            <label>Телеграм:</label>
+            <input class="modal-input" type="text" name="telegram" required>
+
+            <label>Номер телефона:</label>
+            <input class="modal-input" type="text" name="phone" required>
+
+            <button class="modal-button" type="submit">🚀 Отправить заявку</button>
+        </form>
+    </div>
+</div>
+
+    <script>
+function openModal() {
+    document.getElementById("modal-bg").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("modal-window").classList.add("show");
+    }, 10);
+}
+
+function closeModal() {
+    document.getElementById("modal-window").classList.remove("show");
+    setTimeout(() => {
+        document.getElementById("modal-bg").style.display = "none";
+    }, 200);
+}
+</script>
+
 
 </body>
 </html>
